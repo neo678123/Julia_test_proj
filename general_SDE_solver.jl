@@ -10,6 +10,11 @@ function getRandomGaussian(mean, variance, num)
  end
  
 
+"""
+ Solve an SDE of the form 
+    dX_t = mu(t, X_t) dt + sigma(t, X_t) dW_t
+ using the Euler-Maruyama method
+"""
 function solveSDE(mu, sigma, times, initialCondition)
     N = length(times)
     dim = length(initialCondition)
