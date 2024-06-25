@@ -39,7 +39,7 @@ zMax = Float64(6pi)
 
 n0 = Float64(1.4)
 q0 = Float64(1.2)
-p0 = Float64(0)
+p0 = Float64(0.03)
 
 N = Int32(ceil(zMax/h))
 
@@ -56,11 +56,14 @@ end
 times = h * [0:1:N-1]
 
 #println(phaseSpace)
-#plot(qValues, pValues)
+plot(qValues, pValues)
 #plot(times, map((q, p) -> hamiltonian(q, p, n0), qValues[1], pValues[1]))
-global labels = ["q₀ = $q0"]
+global labels = ["q₀ = $q0, p₀ = $p0"]
 for i = 1:9
-    global labels = hcat(labels, ["q₀ = $(Float64(round(1000 * (q0 - Float64(i * 0.1)))/1000))"])
+    global labels = hcat(labels, 
+    ["q₀ = $(Float64(round(1000 * (q0 - Float64(i * 0.1)))/1000)), p₀ = $p0"])
 end
 println(labels)
-plot(times, qValues, label = labels)
+
+#plot(times, qValues, label = labels)
+plot(qValues, pValues, label = labels)
