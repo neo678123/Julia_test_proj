@@ -58,11 +58,11 @@ function symplecticRK2Scheme(q0::Float64, p0::Float64, n0::Float64, h::Float64, 
 end
 
 h = Float64(0.01)
-zMax = Float64(6pi)
+zMax = Float64(pi)
 
 n0 = Float64(1.4)
 q0 = Float64(1.2)
-p0 = Float64(0.03)
+p0 = Float64(0.8)
 
 N = Int32(ceil(zMax/h))
 kSquared = Float64(n0^2 - 1)
@@ -92,8 +92,10 @@ for i = 1:9
 end
 println(labels)
 
-plot(times, qValues, label = labels, xlabel = "t", ylabel = "q(t)", legend=:bottomright)
-# plot(times, pValues, label = labels, xlabel = "t", ylabel = "p(t)")
+plot(times, qValues, label = labels, xlabel = "t", ylabel = "q(t)", legend=:bottomleft)
+# plot(times, pValues, label = labels, xlabel = "t", ylabel = "p(t)", legend=:bottomleft)
+ylims!(-1, 2.5)
 # plot(qValues, pValues, label = labels, xlabel = "q(t)", ylabel = "p(t)")
 # plot(times, map((q, p) -> hamiltonian(q, p, n0), qValues[10], pValues[10]), label = "...",
 #        xlabel = "t", ylabel = "H(q(t), p(t))")
+# png("RK2_ps_p0=$p0")
