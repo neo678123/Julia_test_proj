@@ -25,7 +25,7 @@ function symplecticEulerScheme(q0::Float64, p0::Float64, n0::Float64, h::Float64
         #println("H = $(hamiltonian(q[n-1],p[n-1], n0))")
         q[n] = q[n-1] - h / H * p[n-1]
         #H = hamiltonian(q[n],p[n-1], n0)
-        if abs(q[n]) <= 1
+        if abs(q[n]) < 1
             p[n] = p[n-1] + h * kSquared / H * q[n] 
         else 
             p[n] = p[n-1]
