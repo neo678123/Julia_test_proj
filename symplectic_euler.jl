@@ -25,7 +25,7 @@ function symplecticEulerScheme(q0::Float64, p0::Float64, n0::Float64, h::Float64
         #println("H = $(hamiltonian(q[n-1],p[n-1], n0))")
         q[n] = q[n-1] - h / H * p[n-1]
         #H = hamiltonian(q[n],p[n-1], n0)
-        if q[n] <= 1
+        if abs(q[n]) <= 1
             p[n] = p[n-1] + h * kSquared / H * q[n] 
         else 
             p[n] = p[n-1]
@@ -66,7 +66,7 @@ for i = 1:9
 end
 println(labels)
 
-plot(times, qValues, label = labels, xlabel = "t", ylabel = "q(t)")
+plot(times, qValues, label = labels, xlabel = "t", ylabel = "q(t)", legend=:bottomright)
 # plot(times, pValues, label = labels, xlabel = "t", ylabel = "p(t)")
 # plot(qValues, pValues, label = labels, xlabel = "q(t)", ylabel = "p(t)")
 # plot(times, map((q, p) -> hamiltonian(q, p, n0), qValues[10], pValues[10]), label = "...",
