@@ -47,7 +47,7 @@ function symplecticRK2Scheme(q0::Float64, p0::Float64, n0::Float64, h::Float64, 
             k = Minv * vcat(v,v)
         else
             v = [-p[n-1]/H, 0]
-            k = Minv * vcat(v,v)
+            k = Linv * vcat(v,v)
         end
 
         q[n] = q[n-1] + h * (b[1] * k[1] + b[2] * k[3])
