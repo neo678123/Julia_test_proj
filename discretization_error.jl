@@ -1,6 +1,7 @@
 using Plots
 using LinearAlgebra
 using LaTeXStrings
+using BenchmarkTools
 
 function refractiveIndex(q::Float64, n0::Float64)::Float64
     if abs(q) <= 1
@@ -123,7 +124,7 @@ kSquared = Float64(n0^2 - 1)
 A = hcat([1/4, 1/4 + 1/(2 * sqrt(3))], [1/4 - 1/(2 * sqrt(3)), 1/4])
 b = [1/2, 1/2]
 
-hValues = [0.5:-0.05:0.05;]
+hValues = [0.4:-0.005:0.001;]
 SEerrors = map(h -> getL2ErrorSE(q0, p0, n0, h, Int32(ceil(zMax/h))), hValues)
 RK2errors = map(h -> getL2ErrorRK2(q0, p0, n0, h, Int32(ceil(zMax/h)), A, b), hValues)
 println(hValues)
@@ -131,5 +132,6 @@ println(SEerrors)
 
 labels = permutedims(["h = $h" for h in hValues])
 print(labels)
-plot(hValues, SEerrors, seriestype=:scatter, label = "Symplectic Euler", ylabel = L"|| e_h ||_{\ell^2}", xlabel = L"h")
+plot(hValues, SEerrors, seriestype=:scatter, label = "Symplectic Euler", ylabel = L"|| (e_n) ||_{\ell^2}", xlabel = L"h")
 plot!(hValues, RK2errors, seriestype=:scatter, label = "RK2")
+png("L2_discretisation_errors_q0=0.8")
